@@ -1,9 +1,13 @@
-import fs from "fs"; //se usa import para manejo de archivo asincrono
-//import {Blob} from `buffer`;        //Se utiliza para saber el tamaño de un archivo
+import fs from "fs";
+import path from "path";
+import { __dirname, generarIdUnico } from "../utils.js";
+//import { title } from "process";
 
-export default class ProducstManager {
-  constructor(path) {
-    this.path = path;
+
+
+class ProductManagerFile {
+  constructor(pathFile) {
+    this.path = path.join(__dirname,`/files/${pathFile}`);
     //this.products = [];
   }
 
@@ -21,18 +25,19 @@ export default class ProducstManager {
     }
   };
 
-  addProduct = async (producto) => {
+
+  createProduct = async ({title="", description="", code=0, price=0, status=true, stock=0, category="", thumbnails=[]}) => {
+
     const products = await this.getProducts();
     try {
-      producto = {
-        ...producto,
-        id: this.generarIdUnico(),
-      };
-      products.push(producto);
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(products, null, "\t")
-      );
+     status=true;    //x si llega a venir con False
+     const productoConId = { title, description, code, price, status, stock, category, thumbnails, id: generarIdUnico() };
+      if (createProducValid(productoConId) === false) {     //validar propiedades
+        console.log("Las propiedades del producto, no cumplen los requerimientos");
+        return products;
+      }
+      products.push(productoConId);
+      await fs.promises.writeFile(this.path, JSON.stringify(products, null, "\t"));
       try {
         return products;
       } catch {
@@ -43,13 +48,8 @@ export default class ProducstManager {
     }
   };
 
-  generarIdUnico() {
-    const parteAleatoria = Math.random().toString(36).substring(2, 11); // Genera una cadena aleatoria de 9 caracteres
-    const marcaDeTiempo = Date.now().toString(36); // Convierte la marca de tiempo a una cadena hexadecimal
-    const idUnico = parteAleatoria + marcaDeTiempo; // Combina la parte aleatoria con la marca de tiempo
-    return idUnico;
-  }
-
+ 
+ 
   getProductById = async (id) => {
     const products = await this.getProducts();
     try {
@@ -73,6 +73,7 @@ export default class ProducstManager {
 
   updateProduct = async (id, producto) => {
     const products = await this.getProducts();
+  
     try {
       let index = products.findIndex((produc) => produc.id === id);
       if (index >= 0) {
@@ -110,3 +111,15 @@ export default class ProducstManager {
   };
 
 }
+
+const createProducValid = ({ title, description, code, price, status, stock, category, thumbnails} ) => {
+
+    if (title === "" || description === "" || code === 0 || price <= 0 || stock <= 0 || category === "") {
+        //console.log("x false")
+        return false;
+    }
+    console.log("x true")
+    return true;
+  }
+
+export {ProductManagerFile};
