@@ -73,11 +73,15 @@ class ProductManagerFile {
 
   updateProduct = async (id, producto) => {
     const products = await this.getProducts();
-  
+ 
     try {
       let index = products.findIndex((produc) => produc.id === id);
       if (index >= 0) {
         products[index] = producto;
+        if (createProducValid(producto) === false) {     //validar propiedades
+            console.log("Las propiedades del producto, no cumplen los requerimientos");
+            return products;
+          }
         products[index].id = id; //Para asegurarse que sigue el mismo id. de producto
         await fs.promises.writeFile(this.path,JSON.stringify(products, null, "\t"));
         try {
@@ -113,7 +117,12 @@ class ProductManagerFile {
 }
 
 const createProducValid = ({ title, description, code, price, status, stock, category, thumbnails} ) => {
-
+    
+    //console.log("title: " + title)
+    if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {      //Se valida parametros undefined
+        //console.log("Parametros obligatorios no definidos")
+        return false;
+    }
     if (title === "" || description === "" || code === 0 || price <= 0 || stock <= 0 || category === "") {
         //console.log("x false")
         return false;

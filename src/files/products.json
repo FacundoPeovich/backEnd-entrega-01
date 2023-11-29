@@ -122,5 +122,31 @@
 			"/imagenes.artic9.1"
 		],
 		"id": "so0ylkt9slpj5ikqe"
+	},
+	{
+		"title": "Articulo 10",
+		"description": "Algodon paq. x 1000 grs",
+		"code": 10,
+		"price": 1050,
+		"status": true,
+		"stock": "5",
+		"category": "Farmacia",
+		"thumbnails": [
+			"/imagenes.artic10.1"
+		],
+		"id": "372zmh3oqlpj5upyr"
+	},
+	{
+		"title": "Articulo 11",
+		"description": "Alcohol x 500 cc",
+		"code": 11,
+		"price": 1500,
+		"status": true,
+		"stock": "15",
+		"category": "Farmacia",
+		"thumbnails": [
+			"/imagenes.artic11.1"
+		],
+		"id": "pkcyeev5glpj61e27"
 	}
 ]
