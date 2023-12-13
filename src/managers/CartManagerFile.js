@@ -79,13 +79,13 @@ class CartManagerFile {
         try {
           return carts;
         } catch {
-          console.log("Error en lectura de archivoss!!");
+          console.log("Error en lectura de archivoss!");
         }
       } else {
         console.log(`NO EXISTE CART, CON EL ID: ${idCart}`);
       }
     } catch {
-      console.log("Error en lectura de archivos!!");
+      console.log("Error en lectura de archivos!");
     }
     //
   };
