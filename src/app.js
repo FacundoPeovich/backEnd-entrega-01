@@ -15,6 +15,6 @@ app.listen(PORT, ()=>{
 })
 
 
-//Rutas
+
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);

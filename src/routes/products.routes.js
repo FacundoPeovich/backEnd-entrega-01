@@ -34,7 +34,7 @@ router.get('/:pid', async (req,res)=>{
     const product = await productManagerFile.getProductById(pid);
     res.send({
         status:"succes",
-        msg:"Product hallado",
+        msg:"Producto hallado",
         product
     })
 })

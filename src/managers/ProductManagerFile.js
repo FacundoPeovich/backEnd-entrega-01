@@ -41,10 +41,10 @@ class ProductManagerFile {
       try {
         return products;
       } catch {
-        console.log("Error en lectura de archivos!!");
+        console.log("Error en lectura de archivos!");
       }
     } catch {
-      console.log("Error en lectura de archivos!!");
+      console.log("Error en lectura de archivos!");
     }
   };
 
